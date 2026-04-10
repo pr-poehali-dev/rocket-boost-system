@@ -6,51 +6,43 @@ export function Testimonial() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true) },
       { threshold: 0.2 },
     )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current)
     return () => observer.disconnect()
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-32 lg:py-40 px-6 lg:px-12 bg-sage">
+    <section ref={sectionRef} id="summary" className="py-24 lg:py-32 px-6 lg:px-12 bg-sage">
       <div className="max-w-5xl mx-auto text-center">
-        {/* Quote Mark */}
-        <div
-          className={`mb-10 transition-all duration-1000 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"}`}
-        >
-          <svg className="w-16 h-16 mx-auto text-primary-foreground/30" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-          </svg>
+        <div className={`mb-10 transition-all duration-1000 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"}`}>
+          <p className="text-xs tracking-[0.3em] uppercase text-primary-foreground/60 mb-4">Итог</p>
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-light text-primary-foreground mb-4">
+            Ключевые выводы
+          </h2>
         </div>
 
-        {/* Quote */}
-        <blockquote
-          className={`font-serif text-2xl md:text-3xl lg:text-4xl font-light text-primary-foreground leading-relaxed mb-10 text-balance transition-all duration-1000 delay-200 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-        >
-          Работа с Wabi была похожа на медитацию. Они поняли, что наш дом должен поддерживать
-          благополучие семьи, а не просто красиво выглядеть. Результат — пространство, которое наконец ощущается как наше.
+        <div className={`grid md:grid-cols-3 gap-px bg-primary-foreground/20 mb-12 transition-all duration-1000 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          {[
+            { label: "Применяется при", value: "n независимых испытаниях" },
+            { label: "Обязательное условие", value: "p = const для каждого испытания" },
+            { label: "Результат", value: "P(k) — точная вероятность" },
+          ].map((item) => (
+            <div key={item.label} className="bg-sage p-8">
+              <p className="text-sm text-primary-foreground/60 mb-2">{item.label}</p>
+              <p className="font-serif text-xl text-primary-foreground">{item.value}</p>
+            </div>
+          ))}
+        </div>
+
+        <blockquote className={`font-serif text-2xl md:text-3xl lg:text-4xl font-light text-primary-foreground leading-relaxed text-balance transition-all duration-1000 delay-400 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          «Схема Бернулли — основа биномиального распределения и один из фундаментальных инструментов теории вероятностей»
         </blockquote>
 
-        {/* Attribution */}
-        <div
-          className={`transition-all duration-1000 delay-400 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-        >
-          <p className="text-sm tracking-widest uppercase text-primary-foreground/80">Анна и Михаил Петровы</p>
-          <p className="text-sm text-primary-foreground/60 mt-1">Резиденция в Москве</p>
+        <div className={`mt-10 transition-all duration-1000 delay-600 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <p className="text-sm tracking-widest uppercase text-primary-foreground/70">Якоб Бернулли</p>
+          <p className="text-sm text-primary-foreground/50 mt-1">«Ars Conjectandi», 1713</p>
         </div>
       </div>
     </section>
